@@ -138,7 +138,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
             # condition for termination of recursive method calls
             def terminal_condition(state,depth):
                 "*** YOUR CODE HERE ***"
-                if depth==0 or gameState.isLose() or gameState.isWin():
+                if depth==0 or state.isLose() or state.isWin():
                     return True
                 else:
                     return False
@@ -152,11 +152,11 @@ class MinimaxAgent(MultiAgentSearchAgent):
 
             # for every legal action, update value and maxiAction
             "*** YOUR CODE HERE ***"
-            possibleactions=gameState.getLegalActions(index_of_agent)
+            possibleactions=state.getLegalActions(index_of_agent)
             for i in possibleactions:
-                nextstate=gameState.generateSuccessor(index_of_agent, i)
+                nextstate=state.generateSuccessor(index_of_agent, i)
                 possiblevalue=minimizer(nextstate,depth,1)[0]
-                nextstate=gameState.generateSuccessor(1,minimizer(nextstate,depth,1)[1])
+                nextstate=state.generateSuccessor(1,minimizer(nextstate,depth,1)[1])
                 if value<possiblevalue:
                     value=possiblevalue
                     maxiAction=i
@@ -168,7 +168,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
             miniAction = None
             def terminal_condition(state,depth):
                 "*** YOUR CODE HERE ***"
-                if depth==0 or gameState.isLose() or gameState.isWin():
+                if depth==0 or state.isLose() or state.isWin():
                     return True
                 else:
                     return False
@@ -179,10 +179,10 @@ class MinimaxAgent(MultiAgentSearchAgent):
             value=999999
             # for every legal action, update value and miniAction
             "*** YOUR CODE HERE ***"
-            possibleactions=gameState.getLegalActions(index_of_agent)
+            possibleactions=state.getLegalActions(index_of_agent)
             for i in possibleactions:
-                nextstate=gameState.generateSuccessor(index_of_agent, i)
-                if index_of_agent<gameState.getNumAgents()-1:
+                nextstate=state.generateSuccessor(index_of_agent, i)
+                if index_of_agent<state.getNumAgents()-1:
                     possiblevalue=minimizer(nextstate,depth,index_of_agent+1)[0]
                 else:
                     possiblevalue=maximizer(nextstate,depth-1,0)[0]
