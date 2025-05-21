@@ -79,7 +79,7 @@ class NaiveBayesModel:
 def buildGraph(dim, num_classes, L): #dim: 输入一维向量长度, num_classes:分类数
     # 以下类均需要在BaseNode.py中实现
     # 也可自行修改模型结构
-    nodes = [LayerNorm((L, dim)), Attention(dim),relu(), LayerNorm((L, dim)), ResLinear(dim), relu(), LayerNorm((L, dim)), Mean(1), Linear(dim, num_classes), LogSoftmax(), NLLLoss(num_classes)]
+    nodes = [ Attention(dim),relu(), LayerNorm((L, dim)), ResLinear(dim), relu(), LayerNorm((L, dim)), Mean(1), Linear(dim, num_classes), LogSoftmax(), NLLLoss(num_classes)]
     
     graph = Graph(nodes)
     return graph
@@ -212,7 +212,7 @@ modeldict = {
 
 if __name__ == '__main__':
     embedding = Embedding()
-    lr = 1e-5  # 学习率
+    lr = 1e-3  # 学习率
     wd1 = 1e-4  # L1正则化
     wd2 = 1e-4  # L2正则化
     batchsize = 64
