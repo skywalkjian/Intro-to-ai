@@ -309,19 +309,21 @@ class LogSoftmax(Node):
         super().__init__("logsoftmax")
         self.dim = dim
 
-    def cal(self, X):
-        # TODO: YOUR CODE HERE
-        X-=np.max(X, axis=self.dim,keepdims=True)
-        self.cache.append(X)
-        return X-np.log(np.sum(np.exp(X), axis=self.dim,keepdims=True))
+    
+    
 
-        raise NotImplementedError
+    def cal(self, X):
+        X = X - np.max(X, axis=self.dim, keepdims=True)
+        expX = np.exp(X)
+        sumX = expX.sum(axis=self.dim, keepdims=True)
+        ret = X - np.log(sumX)
+        self.cache.append(expX/sumX)
+        return ret
 
     def backcal(self, grad):
-        # TODO: YOUR CODE HERE
-        X=self.cache[-1]
-        return grad-np.exp(X)/np.sum(np.exp(X), axis=self.dim,keepdims=True)*grad
-        raise NotImplementedError
+        softmaxX = self.cache[-1]
+        return grad - np.multiply(grad.sum(axis=self.dim, keepdims=True), softmaxX)
+
 
 
 class Sum(Node):
