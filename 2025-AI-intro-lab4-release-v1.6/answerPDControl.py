@@ -14,7 +14,8 @@ def calc_pd_force(target_pos, current_pos, current_vel, kp, kd):
     force: 维度为(2,)的np.array，施加到pacman上的PD控制力
     """
     force = np.zeros(2,)
-    ### 你的代码 ###
+    ### 你的代码 ###0
+    force=kp*(target_pos-current_pos)+kd*(-current_vel)
 
     ### 你的代码 ###
     return force
