@@ -77,11 +77,9 @@ def resample_particles(walls, particles: List[Particle]):
                 break
             resampled_particles.append(Particle(particles[i].position[0], particles[i].position[1], particles[i].theta, 1./N))
     if (N > len(resampled_particles)):
-        tmp_particles = generate_uniform_particles(
-            walls, N-len(resampled_particles))
+        tmp_particles = generate_uniform_particles(walls, N-len(resampled_particles))
         for i in range(len(tmp_particles)):
-            resampled_particles.append(Particle(
-                tmp_particles[i].position[0], tmp_particles[i].position[1], tmp_particles[i].theta, 1./N))
+            resampled_particles.append(Particle(tmp_particles[i].position[0], tmp_particles[i].position[1], tmp_particles[i].theta, 1./N))
     for i in range(len(resampled_particles)):
         resampled_particles[i].position[0] += np.random.normal(0, SIGMA_P)
         resampled_particles[i].position[1] += np.random.normal(0, SIGMA_P)
@@ -102,7 +100,6 @@ def apply_state_transition(p: Particle, traveled_distance, dtheta):
     p.theta = (p.theta+np.pi) % (2*np.pi)-np.pi
     dx = traveled_distance*np.cos(p.theta)
     dy = traveled_distance*np.sin(p.theta)
-    # 更新位置
     p.position[0] += dx
     p.position[1] += dy
     ### 你的代码 ###
